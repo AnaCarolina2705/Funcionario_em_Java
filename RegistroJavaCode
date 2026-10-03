@@ -1,0 +1,109 @@
+import java.util.Scanner; //importa a classe scanner
+
+//cria uma classe abstrata pessoa
+abstract class Pessoa {
+    public abstract void salarioLiquido();
+}
+//cria classe funcionário, que herda a classe pessoa
+class Funcionario extends Pessoa{
+    private long registro; //cria espaço para o registro, onde long significa números inteiros e que possui grande capacidade
+    private double salarioBase; //cria espaço para o salário base, que pode possuir casas decimais
+    private String cargo; //cria espaço para a entrada de textos
+    private int faltas; //cria espaço para o número de faltas, que usa números inteiros
+
+    //cria uma mensagem de erro, exibe uma mensagem de erro caso seja negativo
+    public void setRegistro(long valor){
+        if (valor < 0){
+            System.out.println("Registro inválido! ");
+            this.registro = 0;
+        }else
+            this.registro = valor;
+    }
+    public long getRegistro(){
+        return this.registro;
+    }
+    public void setSalarioBase(double valor){
+        if (valor < 0){
+            System.out.println("Salário inválido! ");
+            this.salarioBase = 0;
+        }else 
+            this.salarioBase = valor;
+    }
+    public double getSalarioBase(){
+        return this.salarioBase;
+    }
+    public void setCargo(String CA){
+        this.cargo = CA;
+    }
+    public String getCargo(){
+        return this.cargo;
+    }
+    //cria uma mensagem de erro, indica que não pode haver número de faltas menor que zero
+    public void setFaltas(int qtd){
+        if(qtd < 0){
+            System.out.println("Número de falta inválido! ");
+            this.faltas = 0;
+        }else
+            this.faltas = qtd;
+    }
+    public int getFaltas(){
+        return this.faltas;
+    }
+    public Funcionario (){
+        System.out.println("Objeto criado com sucesso! ");
+    }
+    //construtor da classe funcionário
+    public Funcionario(long registro,double salarioBase,String cargo,int faltas){
+        setRegistro(registro);
+        setSalarioBase(salarioBase);
+        setCargo(cargo);
+        setFaltas(faltas);
+    }
+    //exibe os dados do funcionário registrado
+    public void imprimir(){
+        System.out.printf("Registro: %d\n", getRegistro());
+        System.out.printf("Salário Base: %.2f\n", getSalarioBase());
+        System.out.printf("Cargo: %s\n", getCargo());
+        System.out.printf("Faltas: %d\n", getFaltas());
+    }
+    //faz o cálculo do salário líquido
+    public void salarioLiquido(){
+        double salLiq = (this.salarioBase - this.faltas * this.salarioBase / 30)*0.8;
+        System.out.printf("Salário Líquido: %.2f\n", salLiq);
+    }
+}
+//código principal
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner ler = new Scanner(System.in); //cria um objeto scanner no código
+		Funcionario colaborador1 = new Funcionario(); //cria um funcionário com dados a serem preenchidos
+		Funcionario colaborador2 = new Funcionario(10183048,10000,"professor",2); //cria um funcionário com dados já preenchidos
+
+    //cria as variáveis que serão utilizadas em main
+		long reg;
+		double sal;
+		String cargo;
+		int faltas;
+
+    //preenchimento de dados
+		System.out.printf("Digite o registro do funcionário: ");
+		reg = ler.nextLong();
+		colaborador1.setRegistro(reg);
+		System.out.printf("Digite o salário base do funcionário: ");
+		sal = ler.nextDouble();
+		colaborador1.setSalarioBase(sal);
+		System.out.printf("Digite o cargo do funcionário: ");
+		cargo = ler.nextLine();
+		colaborador1.setCargo(cargo);
+		System.out.printf("Digite a quantidade de faltas do funcionário: ");
+		faltas = ler.nextInt();
+		colaborador1.setFaltas(faltas);
+
+    //exibe resultados
+		colaborador1.imprimir();
+		colaborador1.salarioLiquido();
+		colaborador2.imprimir();
+		colaborador2.salarioLiquido();
+	}
+}
