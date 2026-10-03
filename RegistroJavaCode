@@ -1,5 +1,6 @@
+// Você pode compilar este código utilizando plataformas próprias para Java,
+// como o Eclipse, ou IDEs disponíveis diretamente pelo navegador.
 import java.util.Scanner; //importa a classe scanner
-
 //cria uma classe abstrata pessoa
 abstract class Pessoa {
     public abstract void salarioLiquido();
